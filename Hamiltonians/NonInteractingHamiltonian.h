@@ -1,8 +1,10 @@
 #pragma once
-#include <Hamiltonians/Hamiltonian.h>
 #include <armadillo>
 
-class TrialWavefunction;
+#include <Hamiltonians/Hamiltonian.h>
+
+#include <Wavefunctions/TrialWavefunction.h>
+
 
 class NonInteractingHamiltonian : public Hamiltonian {
 private:

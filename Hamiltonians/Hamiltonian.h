@@ -1,8 +1,7 @@
 #pragma once
 #include <armadillo>
 
-
-class TrialWavefunction;
+#include <Wavefunctions/TrialWavefunction.h>
 
 class Hamiltonian {
 private:

@@ -14,5 +14,5 @@ public:
     TwoElectronNonInteracting() {}
     ~TwoElectronNonInteracting() {}
 
-    double evaluateWavefunctionSquared(arma::vec alpha, arma::mat R);
+    double evaluateWavefunction(arma::vec alpha, arma::mat R);
 };
