@@ -25,8 +25,8 @@ using namespace arma;
 
 int main(int argc, char* argv[]) {
 
-    long   seed = 1000;
-    double dx   = pow(10, -4);
+    long   seed = 1001;
+    double dx   = 0.1;
     int    N    = pow(10,  5);
     int    M    = floor(N/5);
     char*  fileName = "../VMC/data.dat";
@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     System             system;
     StatisticsSampler* statistics;
 
-    system.setTrialWavefunction(new TwoElectronInteracting);
+    system.setTrialWavefunction(new TwoElectronNonInteracting);
     system.setHamiltonian      (new HarmonicOscillator);
     system.setRandomNumberGeneratorSeed(&seed);
     system.setUpMetropolis(N, M, dx);

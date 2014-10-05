@@ -1,5 +1,9 @@
 #include <Hamiltonians/HarmonicOscillator.h>
 
+using arma::mat;
+using arma::vec;
+using arma::zeros;
+
 HarmonicOscillator::HarmonicOscillator() {
 }
 
@@ -11,13 +15,16 @@ HarmonicOscillator::HarmonicOscillator(TrialWavefunction* trial) {
 
 double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
 
-    // Compute the local kinetic energy.
-    arma::mat H       = arma::zeros<arma::mat>(2,2);
-    double    h       = 1e-5;
-    double    kinetic = 0;
+    int numberOfParticles  = m_wavefunction->getNumberOfParticles();
+    int numberOfDimensions = m_wavefunction->getNumberOfDimensions();
 
-    for (int particle = 0; particle < 2; particle++) {
-        for (int coordinate = 0; coordinate < 2; coordinate++) {
+    // Compute the local kinetic energy.
+    mat    H       = zeros<mat>(numberOfParticles, numberOfDimensions);
+    double h       = 1e-5;
+    double kinetic = 0;
+
+    for (int particle = 0; particle < numberOfParticles; particle++) {
+        for (int coordinate = 0; coordinate < numberOfDimensions; coordinate++) {
 
             H(particle, coordinate) = h;
             kinetic -= (m_wavefunction->evaluateWavefunction(R+H) - 2 *
@@ -32,10 +39,10 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
     // Compute the local potential energy.
     double    potential;
 
-    for (int particle = 0; particle < 2; particle++) {
-        arma::vec position = R.col(particle);
-        double    rSquared = dot(position, position);
-        potential += rSquared;
+    for (int particle = 0; particle < numberOfParticles; particle++) {
+        vec    position  = R.col(particle);
+        double rSquared  = dot(position, position);
+        potential       += rSquared;
     }
     potential /= 2;
 

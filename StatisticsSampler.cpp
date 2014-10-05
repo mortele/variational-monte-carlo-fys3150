@@ -9,14 +9,19 @@ using std::ios;
 
 
 StatisticsSampler::StatisticsSampler(System *system) :
-    m_energy(0), m_energySquared(0), m_accepted(0), m_N(0), m_M(0), m_dx(0) {
+    m_energy(0),
+    m_energySquared(0),
+    m_accepted(0),
+    m_N(0),
+    m_M(0),
+    m_dx(0) {
+
     m_system = system;
 }
 
 
 void StatisticsSampler::sample(bool accepted) {
     double energy = m_system->m_hamiltonian->evaluateLocalEnergy(m_system->m_R);
-    std::cout << energy << "\n";
     m_energy        += energy;
     m_energySquared += energy*energy;
     m_accepted      += accepted;
@@ -33,9 +38,9 @@ void StatisticsSampler::printDataToTerminal() {
     double accepted      = m_accepted      / ((double) (m_N - m_M));
     double energySquared = m_energySquared / ((double) (m_N - m_M));
 
-    printf("Energy:                   %15.7f\n",   energy);
-    printf("Variance:                 %15.7f\n",   energySquared - energy*energy);
-    printf("Ratio of accepted steps:  %15.7f\n\n", accepted);
+    printf("Energy:                   %15.7g\n",   energy);
+    printf("Variance:                 %15.7g\n",   energySquared - energy*energy);
+    printf("Ratio of accepted steps:  %15.7g\n\n", accepted);
 
 }
 
