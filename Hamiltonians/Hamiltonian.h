@@ -4,12 +4,12 @@
 #include <Wavefunctions/TrialWavefunction.h>
 
 class Hamiltonian {
-private:
-    TrialWavefunction *m_waveFunction;
+protected:
+    TrialWavefunction *m_wavefunction;
 
 public:
     Hamiltonian() {}
     ~Hamiltonian() {}
     virtual void   setTrialWavefunction(TrialWavefunction* trial) = 0;
-    virtual double evaluateLocalEnergy (arma::vec a, arma::mat R) = 0;
+    virtual double evaluateLocalEnergy (arma::mat R) = 0;
 };

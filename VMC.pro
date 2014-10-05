@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     Wavefunctions/TwoElectronNonInteracting.cpp \
     Hamiltonians/Hamiltonian.cpp \
     System.cpp \
-    Hamiltonians/HarmonicOscillator.cpp
+    Hamiltonians/HarmonicOscillator.cpp \
+    Wavefunctions/TwoElectronInteracting.cpp \
+    Math/RandomNumberGenerator.cpp
 
 
 HEADERS += \
@@ -17,4 +19,11 @@ HEADERS += \
     Wavefunctions/TwoElectronNonInteracting.h \
     Hamiltonians/Hamiltonian.h \
     System.h \
-    Hamiltonians/HarmonicOscillator.h
+    Hamiltonians/HarmonicOscillator.h \
+    Wavefunctions/TwoElectronInteracting.h \
+    Math/RandomNumberGenerator.h
+
+
+#CONFIG  += c++11
+#QMAKE_CXXFLAGS += -std=c++0x
+

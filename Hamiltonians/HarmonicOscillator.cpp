@@ -4,12 +4,12 @@ HarmonicOscillator::HarmonicOscillator() {
 }
 
 
-HarmonicOscillator::HarmonicOscillator(TrialWavefunction* trial) :
-    m_waveFunction(trial) {
+HarmonicOscillator::HarmonicOscillator(TrialWavefunction* trial) {
+    m_wavefunction = trial;
 }
 
 
-double HarmonicOscillator::evaluateLocalEnergy(arma::vec a, arma::mat R) {
+double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
 
     // Compute the local kinetic energy.
     arma::mat H       = arma::zeros<arma::mat>(2,2);
@@ -20,14 +20,14 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::vec a, arma::mat R) {
         for (int coordinate = 0; coordinate < 2; coordinate++) {
 
             H(particle, coordinate) = h;
-            kinetic -= (m_waveFunction->evaluateWavefunction(a,R+H) - 2 *
-                        m_waveFunction->evaluateWavefunction(a,R)   +
-                        m_waveFunction->evaluateWavefunction(a,R-H)) / (h*h);
+            kinetic -= (m_wavefunction->evaluateWavefunction(R+H) - 2 *
+                        m_wavefunction->evaluateWavefunction(R)   +
+                        m_wavefunction->evaluateWavefunction(R-H)) / (h*h);
             H(particle, coordinate) = 0;
 
         }
     }
-    kinetic /= (2 * m_waveFunction->evaluateWavefunction(a,R));
+    kinetic /= (2 * m_wavefunction->evaluateWavefunction(R));
 
     // Compute the local potential energy.
     double    potential;
@@ -39,12 +39,12 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::vec a, arma::mat R) {
     }
     potential /= 2;
 
-    return kinetic + potential;
+    return kinetic;// + potential;
 }
 
 
 void HarmonicOscillator::setTrialWavefunction(TrialWavefunction *trial){
-    m_waveFunction = trial;
+    m_wavefunction = trial;
 }
 
 
