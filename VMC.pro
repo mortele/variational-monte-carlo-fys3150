@@ -8,11 +8,13 @@ SOURCES += main.cpp \
     Wavefunctions/TrialWavefunction.cpp \
     Wavefunctions/TwoElectronNonInteracting.cpp \
     Hamiltonians/Hamiltonian.cpp \
-    Hamiltonians/NonInteractingHamiltonian.cpp
+    System.cpp \
+    Hamiltonians/HarmonicOscillator.cpp
 
 
 HEADERS += \
     Wavefunctions/TrialWavefunction.h \
     Wavefunctions/TwoElectronNonInteracting.h \
     Hamiltonians/Hamiltonian.h \
-    Hamiltonians/NonInteractingHamiltonian.h
+    System.h \
+    Hamiltonians/HarmonicOscillator.h

@@ -1,11 +1,15 @@
-#include <Hamiltonians/NonInteractingHamiltonian.h>
+#include <Hamiltonians/HarmonicOscillator.h>
 
-NonInteractingHamiltonian::NonInteractingHamiltonian(TrialWavefunction* trial) :
+HarmonicOscillator::HarmonicOscillator() {
+}
+
+
+HarmonicOscillator::HarmonicOscillator(TrialWavefunction* trial) :
     m_waveFunction(trial) {
 }
 
 
-double NonInteractingHamiltonian::evaluateLocalEnergy(arma::vec a, arma::mat R) {
+double HarmonicOscillator::evaluateLocalEnergy(arma::vec a, arma::mat R) {
 
     // Compute the local kinetic energy.
     arma::mat H       = arma::zeros<arma::mat>(2,2);
@@ -26,10 +30,6 @@ double NonInteractingHamiltonian::evaluateLocalEnergy(arma::vec a, arma::mat R) 
     kinetic /= (2 * m_waveFunction->evaluateWavefunction(a,R));
 
     // Compute the local potential energy.
-    arma::vec position1  = R.col(0);
-    arma::vec position2  = R.col(1);
-    double    r1         = norm(position1);
-    double    r2         = norm(position2);
     double    potential;
 
     for (int particle = 0; particle < 2; particle++) {
@@ -41,5 +41,12 @@ double NonInteractingHamiltonian::evaluateLocalEnergy(arma::vec a, arma::mat R) 
 
     return kinetic + potential;
 }
+
+
+void HarmonicOscillator::setTrialWavefunction(TrialWavefunction *trial){
+    m_waveFunction = trial;
+}
+
+
 
 

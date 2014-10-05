@@ -6,13 +6,15 @@
 #include <Wavefunctions/TrialWavefunction.h>
 
 
-class NonInteractingHamiltonian : public Hamiltonian {
+class HarmonicOscillator : public Hamiltonian {
 private:
     TrialWavefunction* m_waveFunction;
 
 public:
-    NonInteractingHamiltonian(TrialWavefunction* trial);
-    ~NonInteractingHamiltonian() {}
+    HarmonicOscillator();
+    HarmonicOscillator(TrialWavefunction* trial);
+    ~HarmonicOscillator() {}
+    void setTrialWavefunction(TrialWavefunction* trial);
     double evaluateLocalEnergy(arma::vec a, arma::mat R);
 };
 

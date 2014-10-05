@@ -10,8 +10,9 @@
 #include <Wavefunctions/TwoElectronNonInteracting.h>
 
 #include <Hamiltonians/Hamiltonian.h>
-#include <Hamiltonians/NonInteractingHamiltonian.h>
+#include <Hamiltonians/HarmonicOscillator.h>
 
+#include <System.h>
 
 using namespace std;
 using namespace arma;
@@ -19,8 +20,20 @@ using namespace arma;
 
 int main(int argc, char* argv[]) {
 
+
+    System system;
+
+    system.setTrialWavefunction(new TwoElectronNonInteracting());
+    system.setHamiltonian      (new HarmonicOscillator());
+
+
+
+    return 0;
+
+
+
     TwoElectronNonInteracting trial;
-    NonInteractingHamiltonian H(&trial);
+    HarmonicOscillator H(&trial);
 
     mat R     = randu<mat>(2,2);
     vec alpha = ones<vec>(2);

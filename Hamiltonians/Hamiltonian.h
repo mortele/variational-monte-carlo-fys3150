@@ -8,7 +8,8 @@ private:
     TrialWavefunction *m_waveFunction;
 
 public:
-    Hamiltonian();
+    Hamiltonian() {}
     ~Hamiltonian() {}
-    virtual double evaluateLocalEnergy(arma::vec a, arma::mat R) = 0;
+    virtual void   setTrialWavefunction(TrialWavefunction* trial) = 0;
+    virtual double evaluateLocalEnergy (arma::vec a, arma::mat R) = 0;
 };
