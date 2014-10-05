@@ -1,3 +1,3 @@
 #pragma once
 
-double randomNumberGenerator(long*);
+double randomNumberGenerator(long* idum);

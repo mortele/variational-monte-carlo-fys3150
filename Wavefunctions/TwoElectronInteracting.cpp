@@ -1,5 +1,14 @@
 #include <Wavefunctions/TwoElectronInteracting.h>
-#include <Math/RandomNumberGenerator.h>
+#include <Math/RandomNumberGenerator.cpp>
+
+TwoElectronInteracting::TwoElectronInteracting() {
+    m_particles  = 2;
+    m_dimensions = 2;
+    m_alpha      = arma::vec(2);
+    m_alpha(0)   = 0.9;
+    m_alpha(1)   = 0.2;
+}
+
 
 
 double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
@@ -22,8 +31,10 @@ mat TwoElectronInteracting::setInitialPosition() {
     mat R = mat(2,2);
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
-            R(i,j) = 0.0; //randomNumberGenerator(m_seed);
+            R(i,j) = randomNumberGenerator(m_seed);
         }
     }
     return R;
 }
+
+

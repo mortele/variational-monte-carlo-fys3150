@@ -1,4 +1,14 @@
 #include <Wavefunctions/TwoElectronNonInteracting.h>
+#include <Math/RandomNumberGenerator.h>
+
+
+
+TwoElectronNonInteracting::TwoElectronNonInteracting() {
+    m_particles  = 2;
+    m_dimensions = 2;
+    m_alpha      = arma::vec(1);
+    m_alpha(0)   = 1.0;
+}
 
 
 double TwoElectronNonInteracting::evaluateWavefunction(arma::mat R) {
@@ -16,6 +26,11 @@ double TwoElectronNonInteracting::evaluateWavefunction(arma::mat R) {
 
 mat TwoElectronNonInteracting::setInitialPosition() {
     mat R = mat(2,2);
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            R(i,j) = randomNumberGenerator(m_seed);
+        }
+    }
     return R;
 }
 

@@ -7,6 +7,8 @@ using arma::mat;
 
 class TrialWavefunction {
 protected:
+    int    m_particles;
+    int    m_dimensions;
     vec    m_alpha;
     double m_oldWaveFunctionSquaredValue;
     long*  m_seed;
@@ -23,4 +25,6 @@ public:
     void   setAlpha(vec a)                          {m_alpha = a;}
     void   setRandomNumberGeneratorSeed(long* seed) {m_seed = seed;}
     vec    getAlpha()                               {return m_alpha;}
+    int    getNumberOfDimensions()                  {return m_dimensions;}
+    int    getNumberOfParticles()                   {return m_particles;}
 };

@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     System.cpp \
     Hamiltonians/HarmonicOscillator.cpp \
     Wavefunctions/TwoElectronInteracting.cpp \
-    Math/RandomNumberGenerator.cpp
+    Math/RandomNumberGenerator.cpp \
+    StatisticsSampler.cpp
 
 
 HEADERS += \
@@ -21,7 +22,8 @@ HEADERS += \
     System.h \
     Hamiltonians/HarmonicOscillator.h \
     Wavefunctions/TwoElectronInteracting.h \
-    Math/RandomNumberGenerator.h
+    Math/RandomNumberGenerator.h \
+    StatisticsSampler.h
 
 
 #CONFIG  += c++11

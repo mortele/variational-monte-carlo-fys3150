@@ -39,7 +39,7 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
     }
     potential /= 2;
 
-    return kinetic;// + potential;
+    return kinetic + potential;
 }
 
 
