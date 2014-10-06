@@ -19,8 +19,8 @@ TwoElectronInteracting::TwoElectronInteracting(arma::vec a) {
 
 double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
 
-    arma::vec position1  = R.col(0);
-    arma::vec position2  = R.col(1);
+    arma::vec position1  = R.row(0).t();
+    arma::vec position2  = R.row(1).t();
     arma::vec distance12 = position2 - position1;
 
     double r1  = arma::norm(position1);
@@ -33,10 +33,9 @@ double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
 
 
 mat TwoElectronInteracting::setInitialPosition() {
-
-    mat R = mat(2,2);
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
+    mat R = mat(m_particles, m_dimensions);
+    for (int i = 0; i < m_particles; i++) {
+        for (int j = 0; j < m_dimensions; j++) {
             R(i,j) = randomNumberGenerator(m_seed);
         }
     }

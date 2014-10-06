@@ -47,4 +47,5 @@ public:
     void setTrialWavefunction        (TrialWavefunction* trial);
     void setHamiltonian              (Hamiltonian*       hamiltonian);
     void setAlpha                    (vec                a);
+    TrialWavefunction* getWavefunction() {return m_wavefunction;}
 };

@@ -27,6 +27,7 @@ public:
     void   setAlpha(vec a)                          {m_alpha = a;}
     void   setRandomNumberGeneratorSeed(long* seed) {m_seed = seed;}
     void   setOmega(double omega)                   {m_omega = omega;}
+    void   setNumberOfDimensions(int dimensions)    {m_dimensions = dimensions;}
     vec    getAlpha()                               {return m_alpha;}
     int    getNumberOfDimensions()                  {return m_dimensions;}
     int    getNumberOfParticles()                   {return m_particles;}

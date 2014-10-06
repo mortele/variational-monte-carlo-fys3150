@@ -26,7 +26,6 @@ using namespace arma;
 
 int main(int argc, char* argv[]) {
 
-//TODO:  Add omega as argument for HO-hamiltonian.
 //FIXME: Variance is negative for alpha=1, two-electrons with no interaction. Should always
 //       be positive.
 //TODO:  Add functionality to statsSampler to record the positions for each metropolis step,
@@ -38,16 +37,16 @@ int main(int argc, char* argv[]) {
     // Numerics.
     long         seed        = 1001;
     double       dx          = 2;
-    double       omega       = 2;
-    int          N           = 5 * pow(10, 5);
+    double       omega       = 0.25;
+    int          N           = 10 * pow(10, 5);
     int          M           = floor(N / 4);
     bool         printOutput = true;
     const char*  fileName    = "../VMC/data.dat";
 
     // Default alpha values.
     vec alpha = vec(2);
-    alpha(0) = 1.0;
-    alpha(1) = 0.5;
+    alpha(0) = 0.9;
+    alpha(1) = 0.2;
 
     if (argc > 1) {
         N           = pow(10, atoi(argv[2]));
@@ -60,10 +59,12 @@ int main(int argc, char* argv[]) {
     System             system;
     StatisticsSampler* statistics;
 
-    //system.setTrialWavefunction(new TwoElectronInteracting(alpha));
-    //system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
-    system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
-    system.setHamiltonian      (new HarmonicOscillator(omega));
+    system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+    system.getWavefunction()->setNumberOfDimensions(3);
+    system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
+
+    //system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
+    //system.setHamiltonian      (new HarmonicOscillator(omega));
 
     system.setRandomNumberGeneratorSeed(&seed);
     system.setUpMetropolis(N, M, dx);

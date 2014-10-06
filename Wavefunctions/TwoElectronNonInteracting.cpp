@@ -30,9 +30,9 @@ double TwoElectronNonInteracting::evaluateWavefunction(arma::mat R) {
 
 
 mat TwoElectronNonInteracting::setInitialPosition() {
-    mat R = mat(2,2);
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
+    mat R = mat(m_particles, m_dimensions);
+    for (int i = 0; i < m_particles; i++) {
+        for (int j = 0; j < m_dimensions; j++) {
             R(i,j) = randomNumberGenerator(m_seed);
         }
     }

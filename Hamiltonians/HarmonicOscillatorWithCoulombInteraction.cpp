@@ -57,7 +57,6 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
             potential      += 1 / norm(r_ij);
         }
     }
-
     return kinetic + potential;
 }
 
