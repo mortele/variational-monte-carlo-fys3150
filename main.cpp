@@ -2,23 +2,22 @@
 #include <fstream>
 #include <iomanip>
 #include <cmath>
-#include <complex>
 #include <cstdlib>
 #include <armadillo>
-#include <vector>
-
-#include <Wavefunctions/TrialWavefunction.h>
-#include <Wavefunctions/TwoElectronNonInteracting.h>
-#include <Wavefunctions/TwoElectronInteracting.h>
-
-#include <Hamiltonians/Hamiltonian.h>
-#include <Hamiltonians/HarmonicOscillator.h>
-#include <Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h>
-
-#include <Math/RandomNumberGenerator.h>
+#include <time.h>
+#include <sys/timeb.h>
 
 #include <System.h>
 #include <StatisticsSampler.h>
+#include <Wavefunctions/TrialWavefunction.h>
+#include <Wavefunctions/TwoElectronNonInteracting.h>
+#include <Wavefunctions/TwoElectronInteracting.h>
+#include <Hamiltonians/Hamiltonian.h>
+#include <Hamiltonians/HarmonicOscillator.h>
+#include <Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h>
+#include <Math/RandomNumberGenerator.h>
+
+
 
 using namespace std;
 using namespace arma;
@@ -37,44 +36,51 @@ int main(int argc, char* argv[]) {
 //       of code is identical between HOwithCoulombInteraction and HO.
 
 
+    timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    unsigned long long unixTimeInMilliSeconds = (unsigned long long)ts.tv_sec  * 1000000LL +
+                                                (unsigned long long)ts.tv_nsec / 1000LL;
+    long int maxValueSignedLongInt = 2147483647;
+
     // Numerics.
-    long         seed        = 1001;
-    int          N           = 10 * pow(10, 5);
+    long int     seed        = (long int) (unixTimeInMilliSeconds % maxValueSignedLongInt);
+    int          N           = pow(10, 6);
     int          M           = floor(N / 4);
-    double       dx          = 10.0;
-    double       omega       = 1.0 / 20.0;
+    double       dx          = 2.0;
+    double       omega       = 1.0;
     bool         printOutput = true;
     const char*  fileName    = "../VMC/data.dat";
 
     // Default alpha values.
     vec alpha = vec(2);
-    alpha(0) = 0.4;
-    alpha(1) = 0.3;
+    alpha(0) = 1.0;
+    alpha(1) = 0.0;
 
+    // Check if parameters are given as command line arguments.
     if (argc > 1) {
-        N           = pow(10, atoi(argv[2]));
+        N           = pow(10, atoi(argv[1]));
         M           = floor(N / 4);
-        alpha(0)    = atof(argv[3]);
-        alpha(1)    = atof(argv[4]);
-        printOutput = atoi(argv[5]);
+        alpha(0)    = atof(argv[2]);
+        alpha(1)    = atof(argv[3]);
+        printOutput = atoi(argv[4]);
     }
 
     System             system;
     StatisticsSampler* statistics;
 
-    system.setTrialWavefunction(new TwoElectronInteracting(alpha));
-    system.getWavefunction()->setNumberOfDimensions(3);
-    system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
+    //system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+    //system.getWavefunction()->setNumberOfDimensions(3);
+    //system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
 
-    //system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
-    //system.setHamiltonian      (new HarmonicOscillator(omega));
+    system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
+    system.setHamiltonian      (new HarmonicOscillator(omega));
 
     system.setRandomNumberGeneratorSeed(&seed);
     system.setUpMetropolis(N, M, dx);
 
     statistics = system.runMetropolisAlgorithm(printOutput);
 
-    statistics->printDataToTerminal();
+    if (printOutput) statistics->printDataToTerminal();
     statistics->printDataToFile(fileName);
 
     // Program executed successfully, return 0.

@@ -53,12 +53,12 @@ StatisticsSampler* System::runMetropolisAlgorithm(bool printProgress) {
         case true : {
             for (int i = 0; i < m_M; i++) {
                 this->metropolisStep();
-                printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
+                if (i % 1000 == 0) printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
             }
             for (int i = m_M; i < m_N; i++) {
                 bool accepted = this->metropolisStep();
                 m_statisticsSampler->sample(accepted);
-                printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
+                if (i % 1000 == 0) printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
             }
             printf("==================================================\n");
             printf("=================== Finished ! ===================\n");
