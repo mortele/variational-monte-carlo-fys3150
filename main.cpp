@@ -34,8 +34,13 @@ int main(int argc, char* argv[]) {
 //       test(?).
 //TODO:  Put most of the evaluateLocalEnergy method in the superclass? As it is now, a lot
 //       of code is identical between HOwithCoulombInteraction and HO.
+//TODO:  Parallelize with MPI? OMP?
+//TODO:  Clean up include statements in .h and .cpp files. Move anything that can be moved
+//       to .cpp files to speed up compilation time.
 
 
+    // Use the current time (since the start of the UNIX epoch, 1 January 1970) (in
+    // milliseconds) as a seed for the random number generator.
     timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
     unsigned long long unixTimeInMilliSeconds = (unsigned long long)ts.tv_sec  * 1000000LL +
@@ -46,15 +51,15 @@ int main(int argc, char* argv[]) {
     long int     seed        = (long int) (unixTimeInMilliSeconds % maxValueSignedLongInt);
     int          N           = pow(10, 6);
     int          M           = floor(N / 4);
-    double       dx          = 2.0;
-    double       omega       = 1.0;
+    double       dx          = 10.0;
+    double       omega       = 0.25;
     bool         printOutput = true;
     const char*  fileName    = "../VMC/data.dat";
 
     // Default alpha values.
     vec alpha = vec(2);
-    alpha(0) = 1.0;
-    alpha(1) = 0.0;
+    alpha(0) = 0.62102;
+    alpha(1) = 0.72286;
 
     // Check if parameters are given as command line arguments.
     if (argc > 1) {
@@ -68,12 +73,12 @@ int main(int argc, char* argv[]) {
     System             system;
     StatisticsSampler* statistics;
 
-    //system.setTrialWavefunction(new TwoElectronInteracting(alpha));
-    //system.getWavefunction()->setNumberOfDimensions(3);
-    //system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
+    system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+    system.getWavefunction()->setNumberOfDimensions(3);
+    system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction(omega));
 
-    system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
-    system.setHamiltonian      (new HarmonicOscillator(omega));
+    //system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
+    //system.setHamiltonian      (new HarmonicOscillator(omega));
 
     system.setRandomNumberGeneratorSeed(&seed);
     system.setUpMetropolis(N, M, dx);
