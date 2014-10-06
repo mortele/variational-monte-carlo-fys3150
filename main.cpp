@@ -31,22 +31,25 @@ int main(int argc, char* argv[]) {
 //TODO:  Add functionality to statsSampler to record the positions for each metropolis step,
 //       in order to plot one-body density.
 //TODO:  Test with 3D HO-with-interactiong-hamiltonian and omega_r against M. Taut's values,
-//       as in project 2.
+//       as in project 2. Also figure out if it actually makes any sense to perform this
+//       test(?).
+//TODO:  Put most of the evaluateLocalEnergy method in the superclass? As it is now, a lot
+//       of code is identical between HOwithCoulombInteraction and HO.
 
 
     // Numerics.
     long         seed        = 1001;
-    double       dx          = 2;
-    double       omega       = 0.25;
     int          N           = 10 * pow(10, 5);
     int          M           = floor(N / 4);
+    double       dx          = 10.0;
+    double       omega       = 1.0 / 20.0;
     bool         printOutput = true;
     const char*  fileName    = "../VMC/data.dat";
 
     // Default alpha values.
     vec alpha = vec(2);
-    alpha(0) = 0.9;
-    alpha(1) = 0.2;
+    alpha(0) = 0.4;
+    alpha(1) = 0.3;
 
     if (argc > 1) {
         N           = pow(10, atoi(argv[2]));

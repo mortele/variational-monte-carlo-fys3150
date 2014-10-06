@@ -27,8 +27,8 @@ private:
     mat    m_R;
     long*  m_seed;
 
-    TrialWavefunction *m_wavefunction;
     Hamiltonian       *m_hamiltonian;
+    TrialWavefunction *m_wavefunction;
     StatisticsSampler *m_statisticsSampler;
 
     void printPreInformation();
