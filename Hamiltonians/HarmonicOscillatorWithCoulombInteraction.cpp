@@ -10,6 +10,11 @@ HarmonicOscillatorWithCoulombInteraction::HarmonicOscillatorWithCoulombInteracti
 }
 
 
+HarmonicOscillatorWithCoulombInteraction::HarmonicOscillatorWithCoulombInteraction(double omega) {
+    m_omega = omega;
+}
+
+
 HarmonicOscillatorWithCoulombInteraction::HarmonicOscillatorWithCoulombInteraction(TrialWavefunction* trial) {
     m_wavefunction = trial;
 }
@@ -44,7 +49,7 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
     for (int particle = 0; particle < numberOfParticles; particle++) {
         vec    position  = R.col(particle);
         double rSquared  = dot(position, position);
-        potential       += rSquared / 2.0;
+        potential       += m_omega * m_omega * rSquared / 2.0;
     }
     for (int particle_i = 0; particle_i < numberOfParticles; particle_i++) {
         for (int particle_j = particle_i+1; particle_j < numberOfParticles; particle_j++) {
@@ -59,7 +64,9 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
 
 void HarmonicOscillatorWithCoulombInteraction::setTrialWavefunction(TrialWavefunction *trial){
     m_wavefunction = trial;
+    m_wavefunction->setOmega(m_omega);
 }
+
 
 
 

@@ -10,6 +10,7 @@ class HarmonicOscillator : public Hamiltonian {
 
 public:
     HarmonicOscillator();
+    HarmonicOscillator(double omega);
     HarmonicOscillator(TrialWavefunction* trial);
     ~HarmonicOscillator() {}
     void setTrialWavefunction(TrialWavefunction* trial);

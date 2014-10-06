@@ -38,9 +38,9 @@ void StatisticsSampler::printDataToTerminal() {
     double accepted      = m_accepted      / ((double) (m_N - m_M));
     double energySquared = m_energySquared / ((double) (m_N - m_M));
 
-    printf("Energy:                   %15.7g\n",   energy);
-    printf("Variance:                 %15.7g\n",   energySquared - energy*energy);
-    printf("Ratio of accepted steps:  %15.7g\n\n", accepted);
+    printf("Energy:                   %25.15g\n",   energy);
+    printf("Variance:                 %25.15g\n",   energySquared - energy*energy);
+    printf("Ratio of accepted steps:  %25.5g\n\n", accepted);
 
 }
 

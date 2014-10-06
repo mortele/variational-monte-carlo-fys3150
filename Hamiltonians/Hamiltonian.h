@@ -5,6 +5,7 @@
 
 class Hamiltonian {
 protected:
+    double             m_omega;
     TrialWavefunction *m_wavefunction;
 
 public:

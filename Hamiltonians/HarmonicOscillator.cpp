@@ -10,6 +10,11 @@ HarmonicOscillator::HarmonicOscillator() {
 }
 
 
+HarmonicOscillator::HarmonicOscillator(double omega) {
+    m_omega = omega;
+}
+
+
 HarmonicOscillator::HarmonicOscillator(TrialWavefunction* trial) {
     m_wavefunction = trial;
 }
@@ -43,7 +48,7 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
     for (int particle = 0; particle < numberOfParticles; particle++) {
         vec    position  = R.row(particle).t();
         double rSquared  = dot(position, position);
-        potential       += rSquared;
+        potential       += m_omega * m_omega * rSquared;
     }
     potential /= 2;
 
@@ -53,7 +58,9 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
 
 void HarmonicOscillator::setTrialWavefunction(TrialWavefunction *trial){
     m_wavefunction = trial;
+    m_wavefunction->setOmega(m_omega);
 }
+
 
 
 

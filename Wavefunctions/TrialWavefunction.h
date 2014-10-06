@@ -10,6 +10,7 @@ protected:
     int    m_particles;
     int    m_dimensions;
     vec    m_alpha;
+    double m_omega;
     double m_oldWaveFunctionSquaredValue;
     long*  m_seed;
 
@@ -25,6 +26,7 @@ public:
     void   setOldWaveFunctionSquared(double old)    {m_oldWaveFunctionSquaredValue = old;}
     void   setAlpha(vec a)                          {m_alpha = a;}
     void   setRandomNumberGeneratorSeed(long* seed) {m_seed = seed;}
+    void   setOmega(double omega)                   {m_omega = omega;}
     vec    getAlpha()                               {return m_alpha;}
     int    getNumberOfDimensions()                  {return m_dimensions;}
     int    getNumberOfParticles()                   {return m_particles;}

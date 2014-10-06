@@ -10,6 +10,7 @@ class HarmonicOscillatorWithCoulombInteraction : public Hamiltonian {
 
 public:
     HarmonicOscillatorWithCoulombInteraction();
+    HarmonicOscillatorWithCoulombInteraction(double omega);
     HarmonicOscillatorWithCoulombInteraction(TrialWavefunction* trial);
     ~HarmonicOscillatorWithCoulombInteraction() {}
     void setTrialWavefunction(TrialWavefunction* trial);

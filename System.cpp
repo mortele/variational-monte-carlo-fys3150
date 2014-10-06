@@ -53,12 +53,12 @@ StatisticsSampler* System::runMetropolisAlgorithm(bool printProgress) {
         case true : {
             for (int i = 0; i < m_M; i++) {
                 this->metropolisStep();
-                printf("Progress: %10.3f %% \r", 100 * ((double) i / ((double) m_N)));
+                printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
             }
             for (int i = m_M; i < m_N; i++) {
                 bool accepted = this->metropolisStep();
                 m_statisticsSampler->sample(accepted);
-                printf("Progress: %10.3f %% \r", 100 * ((double) i / ((double) m_N)));
+                printf("Progress: %10.1f %% \r", 100 * ((double) i / ((double) m_N)));
             }
             printf("==================================================\n");
             printf("=================== Finished ! ===================\n");
@@ -84,8 +84,8 @@ bool System::metropolisStep() {
     int    randomCoordinate, randomParticle;
 
     // Change the position of a single coordinate for a single particle.
-    randomCoordinate = (randomNumberGenerator(m_seed) < 0.5 ? 0 : 1);
-    randomParticle   = (randomNumberGenerator(m_seed) < 0.5 ? 0 : 1);
+    randomCoordinate = floor(randomNumberGenerator(m_seed) * m_dimensions);
+    randomParticle   = floor(randomNumberGenerator(m_seed) * m_particles);
 
     mat newR = m_R;
     newR(randomParticle, randomCoordinate) += ((randomNumberGenerator(m_seed)*2) - 1) * m_dx;
