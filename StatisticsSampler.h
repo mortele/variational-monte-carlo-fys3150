@@ -13,7 +13,6 @@ private:
     int m_N;
     int m_M;
 
-
     System* m_system;
 
 public:
