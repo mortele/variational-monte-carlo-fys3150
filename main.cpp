@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 
     // Numerics.
     long         seed        = 1001;
-    double       dx          = 0.05;
+    double       dx          = 2;
     int          N           = 5 * pow(10, 5);
     int          M           = floor(N / 4);
     bool         printOutput = false;
@@ -41,10 +41,10 @@ int main(int argc, char* argv[]) {
 
     if (argc > 1) {
         N           = pow(10, atoi(argv[2]));
-        M           = floor(N / 4);
+        M           = floor(N / 4); //
         alpha(0)    = atof(argv[3]);
         alpha(1)    = atof(argv[4]);
-        printOutput = false; //atoi(argv[5]);
+        //printOutput = (atoi(argv[5]) == 1 ? true : false);
         cout << N << ", " << alpha(0) << ", " << alpha(1) << ", " << printOutput << endl;
     }
 

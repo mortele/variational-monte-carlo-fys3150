@@ -4,6 +4,7 @@
 using arma::mat;
 using arma::vec;
 using arma::zeros;
+using arma::norm;
 
 HarmonicOscillatorWithCoulombInteraction::HarmonicOscillatorWithCoulombInteraction() {
 }
@@ -28,8 +29,8 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
         for (int coordinate = 0; coordinate < numberOfDimensions; coordinate++) {
 
             H(particle, coordinate) = h;
-            kinetic -= (m_wavefunction->evaluateWavefunction(R+H) - 2 *
-                        m_wavefunction->evaluateWavefunction(R)   +
+            kinetic -= (m_wavefunction->evaluateWavefunction(R+H)  - 2 *
+                        m_wavefunction->evaluateWavefunction(R)    +
                         m_wavefunction->evaluateWavefunction(R-H)) / (h*h);
             H(particle, coordinate) = 0;
 
@@ -47,8 +48,8 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
     }
     for (int particle_i = 0; particle_i < numberOfParticles; particle_i++) {
         for (int particle_j = particle_i+1; particle_j < numberOfParticles; particle_j++) {
-            vec r_ij   = R.col(particle_j) - R.col(particle_i);
-            potential += 1 / arma::norm(r_ij);
+            vec r_ij        = R.col(particle_j) - R.col(particle_i);
+            potential      += 1 / norm(r_ij);
         }
     }
 

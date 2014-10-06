@@ -1,5 +1,7 @@
 #include <Hamiltonians/HarmonicOscillator.h>
 
+using std::cout;
+using std::endl;
 using arma::mat;
 using arma::vec;
 using arma::zeros;
@@ -20,7 +22,7 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
 
     // Compute the local kinetic energy.
     mat    H       = zeros<mat>(numberOfParticles, numberOfDimensions);
-    double h       = 1e-5;
+    double h       = 1e-4;
     double kinetic = 0;
 
     for (int particle = 0; particle < numberOfParticles; particle++) {
@@ -31,16 +33,15 @@ double HarmonicOscillator::evaluateLocalEnergy(arma::mat R) {
                         m_wavefunction->evaluateWavefunction(R)   +
                         m_wavefunction->evaluateWavefunction(R-H)) / (h*h);
             H(particle, coordinate) = 0;
-
         }
     }
     kinetic /= (2 * m_wavefunction->evaluateWavefunction(R));
 
     // Compute the local potential energy.
-    double    potential = 0;
+    double potential = 0;
 
     for (int particle = 0; particle < numberOfParticles; particle++) {
-        vec    position  = R.col(particle);
+        vec    position  = R.row(particle).t();
         double rSquared  = dot(position, position);
         potential       += rSquared;
     }
