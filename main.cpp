@@ -26,6 +26,13 @@ using namespace arma;
 
 int main(int argc, char* argv[]) {
 
+TODO: // Add omega as argument for HO-hamiltonian.
+TODO: // Add functionality to statsSampler to record the positions for each metropolis step,
+      // in order to plot one-body density.
+TODO: // Test with 3D HO-with-interactiong-hamiltonian and omega_r against M. Taut's values,
+      // as in project 2.
+
+
     // Numerics.
     long         seed        = 1001;
     double       dx          = 2;
@@ -41,11 +48,10 @@ int main(int argc, char* argv[]) {
 
     if (argc > 1) {
         N           = pow(10, atoi(argv[2]));
-        M           = floor(N / 4); //
+        M           = floor(N / 4);
         alpha(0)    = atof(argv[3]);
         alpha(1)    = atof(argv[4]);
-        //printOutput = (atoi(argv[5]) == 1 ? true : false);
-        cout << N << ", " << alpha(0) << ", " << alpha(1) << ", " << printOutput << endl;
+        printOutput = atoi(argv[5]);
     }
 
     System             system;
