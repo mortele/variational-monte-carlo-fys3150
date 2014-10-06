@@ -10,6 +10,11 @@ TwoElectronNonInteracting::TwoElectronNonInteracting() {
     m_alpha(0)   = 1.0;
 }
 
+TwoElectronNonInteracting::TwoElectronNonInteracting(vec a) {
+    m_particles  = 2;
+    m_dimensions = 2;
+    m_alpha      = a;
+}
 
 double TwoElectronNonInteracting::evaluateWavefunction(arma::mat R) {
 
@@ -33,6 +38,8 @@ mat TwoElectronNonInteracting::setInitialPosition() {
     }
     return R;
 }
+
+
 
 
 

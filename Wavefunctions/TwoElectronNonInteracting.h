@@ -10,6 +10,7 @@ class TwoElectronNonInteracting : public TrialWavefunction {
 
 public:
     TwoElectronNonInteracting();
+    TwoElectronNonInteracting(vec a);
     ~TwoElectronNonInteracting() {}
 
     double evaluateWavefunction(mat R);

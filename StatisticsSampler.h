@@ -22,6 +22,6 @@ public:
 
     void sample(bool accepted);
     void printDataToTerminal();
-    void printDataToFile(char* fileName);
+    void printDataToFile(const char* fileName);
 };
 

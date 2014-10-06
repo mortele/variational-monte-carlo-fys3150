@@ -10,6 +10,12 @@ TwoElectronInteracting::TwoElectronInteracting() {
 }
 
 
+TwoElectronInteracting::TwoElectronInteracting(arma::vec a) {
+    m_particles  = 2;
+    m_dimensions = 2;
+    m_alpha      = a;
+}
+
 
 double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
 
@@ -21,7 +27,7 @@ double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
     double r2  = arma::norm(position2);
     double r12 = arma::norm(distance12);
 
-    double waveFunction = exp(-m_alpha(0) * (r1*r1 + r2*r2) / 2 ) * exp(r12 / (1 + m_alpha(1)*r12));
+    double waveFunction = exp(-m_alpha(0) * (r1*r1 + r2*r2) / 2 ) * exp(r12 / (1 + m_alpha(1)*r12*r12));
     return waveFunction;
 }
 
@@ -36,5 +42,7 @@ mat TwoElectronInteracting::setInitialPosition() {
     }
     return R;
 }
+
+
 
 

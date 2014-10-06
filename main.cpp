@@ -13,6 +13,7 @@
 
 #include <Hamiltonians/Hamiltonian.h>
 #include <Hamiltonians/HarmonicOscillator.h>
+#include <Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h>
 
 #include <Math/RandomNumberGenerator.h>
 
@@ -25,11 +26,15 @@ using namespace arma;
 
 int main(int argc, char* argv[]) {
 
+    // Numerics.
     long   seed = 1001;
-    double dx   = 0.1;
-    int    N    = pow(10,  5);
-    int    M    = floor(N/5);
-    char*  fileName = "../VMC/data.dat";
+    double dx   = 0.05;
+    int    N    = 5*pow(10,  5);
+    int    M    = floor(N/4);
+    const char*  fileName = "../VMC/data.dat";
+    vec alpha = vec(2);
+    alpha(0) = 0.85;
+    alpha(1) = 0.5;
 
     if (argc > 1) {
         N = pow(10, atoi(argv[2]));
@@ -38,8 +43,12 @@ int main(int argc, char* argv[]) {
     System             system;
     StatisticsSampler* statistics;
 
-    system.setTrialWavefunction(new TwoElectronNonInteracting);
-    system.setHamiltonian      (new HarmonicOscillator);
+    system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+    system.setHamiltonian      (new HarmonicOscillatorWithCoulombInteraction);
+
+    //system.setTrialWavefunction(new TwoElectronNonInteracting);
+    //system.setHamiltonian      (new HarmonicOscillator);
+
     system.setRandomNumberGeneratorSeed(&seed);
     system.setUpMetropolis(N, M, dx);
 

@@ -12,9 +12,9 @@ StatisticsSampler::StatisticsSampler(System *system) :
     m_energy(0),
     m_energySquared(0),
     m_accepted(0),
+    m_dx(0),
     m_N(0),
-    m_M(0),
-    m_dx(0) {
+    m_M(0) {
 
     m_system = system;
 }
@@ -45,13 +45,25 @@ void StatisticsSampler::printDataToTerminal() {
 }
 
 
-void StatisticsSampler::printDataToFile(char* fileName) {
+void StatisticsSampler::printDataToFile(const char* fileName) {
     this->m_N  = m_system->m_N;
     this->m_M  = m_system->m_M;
     this->m_dx = m_system->m_dx;
 
+    double energy        = m_energy        / ((double) (m_N - m_M));
+    double accepted      = m_accepted      / ((double) (m_N - m_M));
+    double energySquared = m_energySquared / ((double) (m_N - m_M));
+
     fstream outFile;
     outFile.open(fileName, ios::out);
-    outFile << "hei";
+
+    outFile << this->m_N     << " ";
+    outFile << this->m_M     << " ";
+    outFile << this->m_dx    << " ";
+    outFile << accepted      << " ";
+    outFile << energy        << " ";
+    outFile << energySquared << " ";
+    outFile << energySquared - energy*energy << " ";
+
     outFile.close();
 }

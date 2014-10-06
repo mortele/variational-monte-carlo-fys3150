@@ -64,6 +64,7 @@ StatisticsSampler* System::runMetropolisAlgorithm(bool printProgress) {
             printf("=================== Finished ! ===================\n");
             printf("==================================================\n\n");
             break;
+
         } case false : {
             for (int i = 0; i < m_M; i++) {
                 this->metropolisStep();

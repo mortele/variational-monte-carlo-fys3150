@@ -15,6 +15,7 @@ protected:
 
 public:
     TrialWavefunction();
+    TrialWavefunction(vec a);
     virtual ~TrialWavefunction() {}
     virtual double evaluateWavefunction(mat) = 0;
     virtual mat    setInitialPosition()      = 0;
