@@ -1,18 +1,15 @@
 #pragma once
 #include <armadillo>
-#include <Hamiltonians/Hamiltonian.h>
+#include <Hamiltonians/HarmonicOscillator.h>
 
-using arma::mat;
 
 class TrialWavefunction;
 
-class HarmonicOscillatorWithCoulombInteraction : public Hamiltonian {
+class HarmonicOscillatorWithCoulombInteraction : public HarmonicOscillator {
 
 public:
-    HarmonicOscillatorWithCoulombInteraction();
     HarmonicOscillatorWithCoulombInteraction(double omega);
-    HarmonicOscillatorWithCoulombInteraction(TrialWavefunction* trial);
     ~HarmonicOscillatorWithCoulombInteraction() {}
-    void setTrialWavefunction(TrialWavefunction* trial);
-    double evaluateLocalEnergy(mat R);
+
+    double evaluateLocalEnergy(arma::mat R);
 };
