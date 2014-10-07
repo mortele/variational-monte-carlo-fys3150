@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     Math/RandomNumberGenerator.cpp \
     StatisticsSampler.cpp \
     Hamiltonians/HarmonicOscillatorWithCoulombInteraction.cpp \
-    timing.cpp
+    timing.cpp \
+    Hamiltonians/HeliumAtom.cpp
 
 
 HEADERS += \
@@ -27,7 +28,8 @@ HEADERS += \
     Math/RandomNumberGenerator.h \
     StatisticsSampler.h \
     Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h \
-    timing.h
+    timing.h \
+    Hamiltonians/HeliumAtom.h
 
 
 #CONFIG  += c++11

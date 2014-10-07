@@ -64,4 +64,3 @@ void HarmonicOscillator::setTrialWavefunction(TrialWavefunction *trial){
 
 
 
-

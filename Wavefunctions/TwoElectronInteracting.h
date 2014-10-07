@@ -13,5 +13,5 @@ public:
     ~TwoElectronInteracting() {}
 
     double evaluateWavefunction(arma::mat R);
-    mat    setInitialPosition();
+    arma::mat    setInitialPosition();
 };

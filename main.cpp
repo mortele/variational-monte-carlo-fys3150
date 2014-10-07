@@ -10,13 +10,17 @@
 #include <System.h>
 #include <StatisticsSampler.h>
 #include <timing.h>
+
+#include <Math/RandomNumberGenerator.h>
+
 #include <Wavefunctions/TrialWavefunction.h>
 #include <Wavefunctions/TwoElectronNonInteracting.h>
 #include <Wavefunctions/TwoElectronInteracting.h>
+
 #include <Hamiltonians/Hamiltonian.h>
+#include <Hamiltonians/HeliumAtom.h>
 #include <Hamiltonians/HarmonicOscillator.h>
 #include <Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h>
-#include <Math/RandomNumberGenerator.h>
 
 using std::cout;
 using std::endl;
@@ -29,7 +33,7 @@ typedef               long int   lint;
 
 
 int main(int argc, char* argv[]) {
-    //TODO:  Balle.
+
     //FIXME: Variance is negative for alpha=1, two-electrons with no
     //       interaction. Should always be positive.
     //TODO:  Test with 3D HO-with-interactiong-hamiltonian and omega_r against
@@ -43,7 +47,9 @@ int main(int argc, char* argv[]) {
     //TODO:  Remove using std::... and using arma::.. directives from header
     //       files. Bad practice, as it propagates through everything with
     //       #include statements. Have them only in .cpp files.
-
+    //TODO:  Run test against known results for He atom.
+    //FIXME: Removing the virtual from Hamiltonian::evaluateLocalEnergy(R)
+    //       gives balle results. Fix?
 
     // Use the current time (since the start of the UNIX epoch, 1 January
     // 1970) (in microseconds) as a seed for the random number generator.
@@ -52,18 +58,20 @@ int main(int argc, char* argv[]) {
 
     // Numerical and physical parameters.
     lint   seed         = (lint) (startTime % maxValueSignedLongInt);
-    int    N            = pow(10, 6);
+    int    N            = pow(10, 5);
     int    M            = floor(N / 4);
     double dx           = 10.0;
     double omega        = 0.25;
     bool   printOutput  = true;
-    bool   storeOneBody = true;
+    bool   storeOneBody = false;
     const char*  fileName = "../VMC/data.dat";
 
-    // Default alpha values.
+    // Variational parameters.
     vec alpha = vec(2);
     alpha(0) = 0.61076;
     alpha(1) = 0.78987;
+    //alpha(0) = 1.843;
+    //alpha(1) = 0.347;
 
     // Check if parameters are given as command line arguments.
     if (argc > 1) {
@@ -77,6 +85,10 @@ int main(int argc, char* argv[]) {
 
     System             system;
     StatisticsSampler* statistics;
+
+    //system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+    //system.setNumberOfDimensions(3);
+    //system.setHamiltonian(new HeliumAtom);
 
     system.setTrialWavefunction(new TwoElectronInteracting(alpha));
     system.setNumberOfDimensions(3);

@@ -3,6 +3,7 @@
 
 #include <Wavefunctions/TrialWavefunction.h>
 
+
 class Hamiltonian {
 protected:
     double             m_omega;
