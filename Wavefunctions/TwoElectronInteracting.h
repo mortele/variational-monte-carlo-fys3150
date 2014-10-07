@@ -1,17 +1,13 @@
 #pragma once
 #include <armadillo>
-#include <Wavefunctions/TrialWavefunction.h>
-
-class TrialWavefunction;
+#include <Wavefunctions/TwoElectronNonInteracting.h>
 
 
-class TwoElectronInteracting : public TrialWavefunction {
+class TwoElectronInteracting : public TwoElectronNonInteracting {
 
 public:
-    TwoElectronInteracting();
     TwoElectronInteracting(arma::vec a);
     ~TwoElectronInteracting() {}
 
     double evaluateWavefunction(arma::mat R);
-    arma::mat    setInitialPosition();
 };

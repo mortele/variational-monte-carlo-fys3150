@@ -5,6 +5,7 @@
 
 class TrialWavefunction;
 
+
 class HarmonicOscillatorWithCoulombInteraction : public HarmonicOscillator {
 
 public:

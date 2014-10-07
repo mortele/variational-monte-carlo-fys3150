@@ -1,48 +1,33 @@
 #include <Wavefunctions/TwoElectronInteracting.h>
 #include <Math/RandomNumberGenerator.cpp>
 
-TwoElectronInteracting::TwoElectronInteracting() {
-    m_particles  = 2;
-    m_dimensions = 2;
-    m_alpha      = arma::vec(2);
-    m_alpha(0)   = 0.9;
-    m_alpha(1)   = 0.2;
-}
+using arma::mat;
+using arma::vec;
+using arma::norm;
 
 
-TwoElectronInteracting::TwoElectronInteracting(arma::vec a) {
+TwoElectronInteracting::TwoElectronInteracting(vec a) {
     m_particles  = 2;
     m_dimensions = 2;
     m_alpha      = a;
 }
 
 
-double TwoElectronInteracting::evaluateWavefunction(arma::mat R) {
+double TwoElectronInteracting::evaluateWavefunction(mat R) {
 
-    arma::vec position1  = R.row(0).t();
-    arma::vec position2  = R.row(1).t();
-    arma::vec distance12 = position2 - position1;
+    // Compute the standard harmonic oscillator part of the wavefunction.
+    double harmonicOscillatorWavefunction = TwoElectronNonInteracting::
+                                            evaluateWavefunction(R);
 
-    double r1  = arma::norm(position1);
-    double r2  = arma::norm(position2);
-    double r12 = arma::norm(distance12);
+    // Compute the Jastrow factor.
+    vec position1  = R.row(0).t();
+    vec position2  = R.row(1).t();
+    vec distance12 = position2 - position1;
 
-    double waveFunction = exp(-m_omega*m_alpha(0) * (r1*r1 + r2*r2) / 2 ) *
-                          exp(r12 / (1.0 + m_alpha(1)*r12));
-    return waveFunction;
+    double r12 = norm(distance12);
+    double jastrowFactor = exp(r12 / (1.0 + m_alpha(1)*r12));
+
+    return harmonicOscillatorWavefunction * jastrowFactor;
 }
-
-
-mat TwoElectronInteracting::setInitialPosition() {
-    mat R = mat(m_particles, m_dimensions);
-    for (int i = 0; i < m_particles; i++) {
-        for (int j = 0; j < m_dimensions; j++) {
-            R(i,j) = randomNumberGenerator(m_seed);
-        }
-    }
-    return R;
-}
-
-
 
 

@@ -30,7 +30,6 @@ void StatisticsSampler::sample(bool accepted) {
     m_accepted      += accepted;
 
     if (m_storeOneBody) this->storePositions();
-
 }
 
 
@@ -48,7 +47,6 @@ void StatisticsSampler::printDataToTerminal(unsigned long long int totalTime) {
     printf("Ratio of accepted steps:   %25.5g \n", accepted);
     printf("Execution time:          %25.5g s \n", m_system->m_executionTime);
     printf("(Total time:             %25.5g s)\n", totalTime / 1000000.0 );
-
 }
 
 

@@ -7,12 +7,12 @@
 
 typedef unsigned long long int ullint;
 
+using arma::vec;
+using arma::mat;
+
+
 System::System() {
     m_statisticsSampler = new StatisticsSampler(this);
-}
-
-
-System::~System() {
 }
 
 

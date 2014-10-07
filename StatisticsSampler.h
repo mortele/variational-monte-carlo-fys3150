@@ -2,14 +2,11 @@
 #include <armadillo>
 #include <fstream>
 
-using std::fstream;
-using std::ios;
-using arma::mat;
-
 class System;
 
 
 class StatisticsSampler {
+
 private:
 
     int     m_N;
@@ -20,8 +17,8 @@ private:
     double  m_energySquared;
     double  m_accepted;
     double  m_dx;
-    System* m_system;
-    fstream m_positionsFile;
+    System*      m_system;
+    std::fstream m_positionsFile;
 
 public:
     StatisticsSampler(System* system);

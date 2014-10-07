@@ -11,6 +11,7 @@ protected:
 public:
     Hamiltonian() {}
     ~Hamiltonian() {}
+
     virtual void   setTrialWavefunction(TrialWavefunction* trial);
     virtual double evaluateLocalEnergy (arma::mat R);
 };

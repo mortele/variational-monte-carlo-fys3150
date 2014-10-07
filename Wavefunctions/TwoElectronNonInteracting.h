@@ -9,7 +9,7 @@ using arma::vec;
 class TwoElectronNonInteracting : public TrialWavefunction {
 
 public:
-    TwoElectronNonInteracting();
+    TwoElectronNonInteracting() {}
     TwoElectronNonInteracting(vec a);
     ~TwoElectronNonInteracting() {}
 
