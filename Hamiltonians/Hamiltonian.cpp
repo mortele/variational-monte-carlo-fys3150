@@ -11,7 +11,7 @@ double Hamiltonian::evaluateLocalEnergy(arma::mat R) {
 
     // Compute the local kinetic energy.
     mat    H       = zeros<mat>(numberOfParticles, numberOfDimensions);
-    double h       = 1e-5;
+    double h       = 0.001;
     double kinetic = 0;
 
     for (int particle = 0; particle < numberOfParticles; particle++) {

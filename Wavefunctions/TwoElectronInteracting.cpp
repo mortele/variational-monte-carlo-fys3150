@@ -25,7 +25,7 @@ double TwoElectronInteracting::evaluateWavefunction(mat R) {
     vec distance12 = position2 - position1;
 
     double r12 = norm(distance12);
-    double jastrowFactor = exp(r12 / (1.0 + m_alpha(1)*r12));
+    double jastrowFactor = exp(r12 / (2*(1.0 + m_alpha(1)*r12)));
 
     return harmonicOscillatorWavefunction * jastrowFactor;
 }

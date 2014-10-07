@@ -32,6 +32,9 @@ typedef unsigned long long int ullint;
 typedef               long int   lint;
 
 ///////////////////////////////////////////////////////////////////////////
+// TODO:  IMPORTANT: Change the 2-e-non-interacting wavefunction back to
+//                   exp(-a(r1*r1 + r2*r2)). Remove also the factor 2 in the
+//                   denominator of the Jastrow factor in 2-e-interacting.
 // TODO:  Test with 3D HO-with-interactiong-hamiltonian and omega_r against
 //        M. Taut's values, as in project 2.
 // TODO:  Parallelize with MPI? OMP?
@@ -49,7 +52,7 @@ int main(int argc, char* argv[]) {
     // Numerical and physical parameters.
     int    testCase     = 2;
     lint   seed         = (lint) (startTime % maxValueSignedLongInt);
-    int    N            = pow(10, 5);
+    int    N            = pow(10, 9);
     int    M            = floor(N / 4);
     double dx           = 10.0;
     double omega        = 0.25;
@@ -89,11 +92,12 @@ int main(int argc, char* argv[]) {
             system.setHamiltonian(new HarmonicOscillatorWithCoulombInteraction(omega));
             break;
         } case 2: {
-            dx = 1.5; omega = 1;
+            dx = 0.001; omega = 2;
             alpha(0) = 1.843;
             alpha(1) = 0.347;
             system.setTrialWavefunction(new TwoElectronInteracting(alpha));
             system.setNumberOfDimensions(3);
+            system.getWavefunction()->setOmega(1);
             system.setHamiltonian(new HeliumAtom);
 
             break;
