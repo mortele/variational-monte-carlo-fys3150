@@ -12,6 +12,6 @@ public:
     Hamiltonian() {}
     ~Hamiltonian() {}
 
-    virtual void   setTrialWavefunction(TrialWavefunction* trial);
+    virtual void   setTrialWavefunction(TrialWavefunction* trial) = 0;
     virtual double evaluateLocalEnergy (arma::mat R);
 };

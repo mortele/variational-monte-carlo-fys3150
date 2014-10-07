@@ -9,6 +9,7 @@ public:
     HeliumAtom() {}
     ~HeliumAtom() {}
 
+    void   setTrialWavefunction(TrialWavefunction *trial);
     double evaluateLocalEnergy(arma::mat R);
 };
 

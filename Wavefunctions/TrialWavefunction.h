@@ -13,7 +13,7 @@ protected:
     arma::vec m_alpha;
 
 public:
-    TrialWavefunction() : m_oldWaveFunctionSquaredValue(0) {}
+    TrialWavefunction() : m_omega(1), m_oldWaveFunctionSquaredValue(0) {}
     TrialWavefunction(arma::vec a);
     ~TrialWavefunction() {}
 
