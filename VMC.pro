@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     Wavefunctions/TwoElectronInteracting.cpp \
     Math/RandomNumberGenerator.cpp \
     StatisticsSampler.cpp \
-    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.cpp
+    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.cpp \
+    timing.cpp
 
 
 HEADERS += \
@@ -25,7 +26,8 @@ HEADERS += \
     Wavefunctions/TwoElectronInteracting.h \
     Math/RandomNumberGenerator.h \
     StatisticsSampler.h \
-    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h
+    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h \
+    timing.h
 
 
 #CONFIG  += c++11

@@ -47,13 +47,13 @@ double HarmonicOscillatorWithCoulombInteraction::evaluateLocalEnergy(arma::mat R
     double    potential = 0;
 
     for (int particle = 0; particle < numberOfParticles; particle++) {
-        vec    position  = R.col(particle);
+        vec    position  = R.row(particle).t();
         double rSquared  = dot(position, position);
         potential       += m_omega * m_omega * rSquared / 2.0;
     }
     for (int particle_i = 0; particle_i < numberOfParticles; particle_i++) {
         for (int particle_j = particle_i+1; particle_j < numberOfParticles; particle_j++) {
-            vec r_ij        = R.col(particle_j) - R.col(particle_i);
+            vec r_ij        = R.row(particle_j).t() - R.row(particle_i).t();
             potential      += 1 / norm(r_ij);
         }
     }

@@ -24,6 +24,7 @@ private:
     int    m_particles;
     int    m_dimensions;
     double m_dx;
+    double m_executionTime;
     mat    m_R;
     long*  m_seed;
 
@@ -38,12 +39,13 @@ public:
     System();
     ~System();
 
-    void               setUpMetropolis(int N, int M, double dx);
+    void               setUpMetropolis(int N, int M, double dx, bool storeOneBody);
     bool               metropolisStep();
     StatisticsSampler* runMetropolisAlgorithm(bool printProgress);
 
     // Getters, setters.
     void setRandomNumberGeneratorSeed(long*              seed);
+    void setNumberOfDimensions       (int numberOfDimensions);
     void setTrialWavefunction        (TrialWavefunction* trial);
     void setHamiltonian              (Hamiltonian*       hamiltonian);
     void setAlpha                    (vec                a);

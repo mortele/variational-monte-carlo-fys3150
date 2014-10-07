@@ -36,11 +36,11 @@ format long;
 %% Apply the metropolis algorithm
 % ..while varying the variational parameters, INTERACTING electrons.
 N      = 5;
-nAlpha = 80;
-nBeta  = 80;
-m      = 15;
-alpha  = linspace(0.55, 0.70, nAlpha);
-beta   = linspace(0.60, 0.85, nBeta);
+nAlpha = 8;
+nBeta  = 8;
+m      = 1;
+alpha  = linspace(0.1, 2.0, nAlpha);
+beta   = linspace(0.1, 2.0, nBeta);
 energy = zeros(nAlpha, nBeta);
 
 for i=1:nAlpha
@@ -51,8 +51,8 @@ for i=1:nAlpha
         energy(i,j) = 0;
         
         for k=1:m
-            systemStr = sprintf('../VMC-Release/VMC %d %d %d %d', ...
-                                N, alpha(i), beta(j), 0);
+            systemStr = sprintf('../VMC-Release/VMC %d %d %d %d %d', ...
+                                N, alpha(i), beta(j), 0, 0);
             system(systemStr);
             data = load('data.dat');
             energy(i,j) = energy(i,j) + data(5);
@@ -60,7 +60,6 @@ for i=1:nAlpha
         energy(i,j) = energy(i,j) / m;
     end
 end
-
 
 
 %% Plot resulting energy
