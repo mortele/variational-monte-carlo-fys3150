@@ -18,7 +18,9 @@ double Hamiltonian::evaluateLocalEnergy(arma::mat R) {
         for (int coordinate = 0; coordinate < numberOfDimensions; coordinate++) {
 
             H(particle, coordinate) = h;
-            kinetic -= (m_wavefunction->evaluateWavefunction(R+H) - 2 * m_wavefunction->evaluateWavefunction(R) + m_wavefunction->evaluateWavefunction(R-H)) / (h*h);
+            kinetic -= (m_wavefunction->evaluateWavefunction(R+H)   -
+                        2 * m_wavefunction->evaluateWavefunction(R) +
+                        m_wavefunction->evaluateWavefunction(R-H))  / (h*h);
             H(particle, coordinate) = 0;
         }
     }

@@ -16,6 +16,7 @@ HeliumAtomWavefunction::HeliumAtomWavefunction(vec a) {
 
 
 double HeliumAtomWavefunction::evaluateWavefunction(arma::mat R) {
+
     vec position1  = R.row(0).t();
     vec position2  = R.row(1).t();
     vec distance12 = position2 - position1;
@@ -24,7 +25,7 @@ double HeliumAtomWavefunction::evaluateWavefunction(arma::mat R) {
     double r2  = norm(position2);
     double r12 = norm(distance12);
 
-    double hydrogenWavefunction = exp(-m_alpha(0) * (r1*r1 + r2*r2));
+    double hydrogenWavefunction = exp(-m_alpha(0) * (r1 + r2));
     double jastrowFactor        = exp(r12 / (2.0*(1.0 + m_alpha(1)*r12)));
 
     return hydrogenWavefunction * jastrowFactor;
