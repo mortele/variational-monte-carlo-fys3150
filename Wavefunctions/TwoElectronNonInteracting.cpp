@@ -20,7 +20,7 @@ double TwoElectronNonInteracting::evaluateWavefunction(mat R) {
     double r1  = norm(position1);
     double r2  = norm(position2);
 
-    double waveFunction = exp(-m_omega*m_alpha(0) * (r1 + r2) / 2.0 );
+    double waveFunction = exp(-m_omega*m_alpha(0) * (r1*r1 + r2*r2) / 2.0 );
     return waveFunction;
 }
 

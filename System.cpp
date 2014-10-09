@@ -100,8 +100,12 @@ bool System::metropolisStep() {
     randomParticle   = floor(randomNumberGenerator(m_seed) * m_particles);
 
     mat newR = m_R;
-    newR(randomParticle,randomCoordinate)+=((randomNumberGenerator(m_seed)*2)
-                                            - 1) * m_dx;
+    newR(randomParticle,randomCoordinate)+= randomNumberGeneratorNormal(m_seed)
+                                            * m_dx;
+
+
+    //newR(randomParticle,randomCoordinate)+=((randomNumberGenerator(m_seed)*2)
+    //                                        - 1) * m_dx;
 
     double newWavefunctionSquared = pow(m_wavefunction->
                                         evaluateWavefunction(newR), 2);

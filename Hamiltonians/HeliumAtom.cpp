@@ -5,12 +5,13 @@ using arma::mat;
 using arma::vec;
 using arma::norm;
 using arma::dot;
+using std::sqrt;
 
 
 double HeliumAtom::evaluateLocalEnergy(mat R) {
 
     // Evalute the kinetic energy.
-    //double kinetic = Hamiltonian::evaluateLocalEnergy(R);
+    double kinetic = Hamiltonian::evaluateLocalEnergy(R);
 
     // Evaluate the remaining potential terms
     vec position1  = R.row(0).t();
@@ -20,7 +21,7 @@ double HeliumAtom::evaluateLocalEnergy(mat R) {
     double r1  = norm(position1);
     double r2  = norm(position2);
     double r12 = norm(distance12);
-    double r1r2 = dot(position1, position2);
+    double r1r2 = sqrt(dot(position1, position2));
     double a = m_wavefunction->getAlpha()(0);
     double b = m_wavefunction->getAlpha()(1);
 
@@ -38,7 +39,8 @@ double HeliumAtom::evaluateLocalEnergy(mat R) {
     //std::cout << "CF_E=" << E_L1 + A * (B + C + D + E) << ",  N_E=" << potential+kinetic <<
       //           ", kinetic=" << kinetic << std::endl << R << std::endl << std::endl;
 
-    return E_L1 + A * (B + C + D + E);
+    //return E_L1 + A * (B + C + D + E);
+    return kinetic + potential;
 }
 
 

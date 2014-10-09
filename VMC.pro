@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     StatisticsSampler.cpp \
     Hamiltonians/HarmonicOscillatorWithCoulombInteraction.cpp \
     timing.cpp \
-    Hamiltonians/HeliumAtom.cpp
+    Hamiltonians/HeliumAtom.cpp \
+    Wavefunctions/HeliumAtomWavefunction.cpp
 
 
 HEADERS += \
@@ -29,7 +30,8 @@ HEADERS += \
     StatisticsSampler.h \
     Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h \
     timing.h \
-    Hamiltonians/HeliumAtom.h
+    Hamiltonians/HeliumAtom.h \
+    Wavefunctions/HeliumAtomWavefunction.h
 
 
 #CONFIG  += c++11

@@ -16,6 +16,7 @@
 #include <Wavefunctions/TrialWavefunction.h>
 #include <Wavefunctions/TwoElectronNonInteracting.h>
 #include <Wavefunctions/TwoElectronInteracting.h>
+#include <Wavefunctions/HeliumAtomWavefunction.h>
 
 #include <Hamiltonians/Hamiltonian.h>
 #include <Hamiltonians/HeliumAtom.h>
@@ -52,7 +53,7 @@ int main(int argc, char* argv[]) {
     // Numerical and physical parameters.
     int    testCase     = 2;
     lint   seed         = (lint) (startTime % maxValueSignedLongInt);
-    int    N            = pow(10, 9);
+    int    N            = pow(10, 6);
     int    M            = floor(N / 4);
     double dx           = 10.0;
     double omega        = 0.25;
@@ -78,31 +79,36 @@ int main(int argc, char* argv[]) {
 
     switch (testCase) {
         case 0: {
-            dx = 2; omega = 1;
-            alpha(0) = 1;
+            // Two NON-INTERACTING electrons in an external harmonic oscillator well.
+            dx = 1.5; omega = 1.0;
+            alpha(0) = 1.0;
             system.setTrialWavefunction(new TwoElectronNonInteracting(alpha));
             system.setHamiltonian      (new HarmonicOscillator(omega));
             break;
+
         } case 1: {
-            dx = 10; omega = 0.25;
+            // Two INTERACTING electrons in a 3D external harmonic oscillator well.
+            dx = 3.5; omega = 0.25;
             alpha(0) = 0.61076;
             alpha(1) = 0.78987;
             system.setTrialWavefunction(new TwoElectronInteracting(alpha));
             system.setNumberOfDimensions(3);
             system.setHamiltonian(new HarmonicOscillatorWithCoulombInteraction(omega));
             break;
+
         } case 2: {
-            dx = 0.001; omega = 2;
+            // He-atom.
+            dx = 0.75;
             alpha(0) = 1.843;
             alpha(1) = 0.347;
-            system.setTrialWavefunction(new TwoElectronInteracting(alpha));
+            system.setTrialWavefunction(new HeliumAtomWavefunction(alpha));
             system.setNumberOfDimensions(3);
-            system.getWavefunction()->setOmega(1);
             system.setHamiltonian(new HeliumAtom);
-
             break;
+
         } default: {
             break;
+
         }
     }
 
