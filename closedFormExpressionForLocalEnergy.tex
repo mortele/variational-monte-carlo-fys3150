@@ -1,0 +1,288 @@
+\documentclass[a4paper,10pt]{article}
+
+% Included packages ---------------------------------------------------------- %
+\usepackage[utf8x]{inputenc}                 % utf-8 encoding, æ, ø , å, etc.
+\usepackage[squaren]{SIunits}                % Convenient handling of physical units.
+\usepackage{a4wide}                          % Adjust margins to better fit A4 format.
+\usepackage{array}                           % Matrices.
+\usepackage{amsmath}                         % Math symbols, and enhanced matrices.
+\usepackage{amsfonts}                        % Math fonts.
+\usepackage{amssymb}                         % More symbols.
+\usepackage{wasysym}                         % Even more symbols.
+\usepackage[pdftex]{graphicx}                % Improved inclusion of .pdf-graphics files.
+\usepackage{sidecap}                         % Floats with captions to the right/left.
+\usepackage{cancel}                          % Visualize cancellations in equations.
+\usepackage{enumerate}                       % Change appearance of counters (arabic, roman, etc.).
+\usepackage{units}                           % Adds better looking fractions (nicefrac).
+\usepackage{floatrow}                        % Multi-figure floats.
+\usepackage{subfig}                          % Multi-figure floats.
+\usepackage{caption}                         % Adds functionality to captions.
+\usepackage{bm}                              % Makes it possible to have bolded text in math mode.
+%\usepackage{combinedgraphics}                % Include figures but let latex handle the text in them.
+%\usepackage[framemethod=default]{mdframed}   % Make boxes.
+\usepackage{listings}                        % For including source code.
+\usepackage[colorlinks]{hyperref}            % Interactive references, colored.
+
+% Differentials -------------------------------------------------------------- %
+\newcommand{\dt}{\,\mathrm{d}t}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\dr}{\,\mathrm{d}r}
+\newcommand{\dz}{\,\mathrm{d}z}
+
+% Number sets ---------------------------------------------------------------- %
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Complex log ---------------------------------------------------------------- %
+\newcommand{\Ln}{\text{Ln}}
+
+% Complex conjugate ---------------------------------------------------------- %
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\zb}{\bar{z}}
+\newcommand{\kb}{\bar{k}}
+\newcommand{\fb}{\bar{f}}
+
+% Derivatives ---------------------------------------------------------------- %
+\newcommand{\der} [2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}   % Derivative.
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}       % Partial derivative.
+
+% Matrices ------------------------------------------------------------------- %
+\newcommand{\mat} [2]{\begin{matrix}[#1] #2 \end{matrix}}    % Matrix with nothing enclosing it.
+\newcommand{\pmat}[2]{\begin{pmatrix}[#1] #2 \end{pmatrix}}  % Matrix with enclosing parentheses.
+\newcommand{\bmat}[2]{\begin{bmatrix}[#1] #2 \end{bmatrix}}  % Matrix with enclosing square brackets.
+\newcommand{\vmat}[2]{\begin{vmatrix}[#1] #2 \end{vmatrix}}  % Matrix with enclosing vertical bars.
+\newcommand{\Vmat}[2]{\begin{Vmatrix}[#1] #2 \end{Vmatrix}}  % Matrix with enclosing double vertical bars.
+
+% Manually set alignment of rows / columns in matrices (mat, pmat, etc.) ----- %
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+% References ----------------------------------------------------------------- %
+\newcommand{\Fig}[1]{Fig.\ \ref{fig:#1}}
+\newcommand{\fig}[1]{Fig.\ \ref{fig:#1}}
+\newcommand{\eq} [1]{Eq.\ (\ref{eq:#1})}
+\newcommand{\Eq} [1]{Eq.\ (\ref{eq:#1})}
+\newcommand{\tab}[1]{Table \ref{tab:#1}}
+\newcommand{\Tab}[1]{Table \ref{tab:#1}}
+
+% Paragraph formatting ------------------------------------------------------- %
+\setlength{\parindent}{5.5mm}
+\setlength{\parskip}  {0mm}
+
+% Source code listings ------------------------------------------------------- %
+\lstset{language=matlab}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+\lstset{numbers=left}              
+\lstset{stepnumber=1}
+\lstdefinestyle{prt}{frame=none,basicstyle=\ttfamily\small}
+
+% Convenient shorthand notation ---------------------------------------------- %
+\newcommand{\nn}{\nonumber}
+\newcommand{\e}[1]{\cdot10^{#1}}
+\renewcommand{\i}{\hat{\imath}}
+\renewcommand{\j}{\hat{\jmath}}
+\renewcommand{\k}{\hat{k}}
+\newcommand{\rv}{{\bf r}}
+
+% Caption position of tables at the top -------------------------------------- %
+\floatsetup[table]{capposition=top}
+
+% Black frame with white background ------------------------------------------ %
+%\newmdenv[linecolor=black,backgroundcolor=white]{exframe}
+
+% Including vector drawings from inkscape ------------------------------------ %
+\newenvironment{combFig}[5]{
+  \begin{figure}[#1] 
+    \centering 
+    \includecombinedgraphics[vecscale=#2, keepaspectratio]{#3} 
+    \caption{#4 \label{#5}}
+  \end{figure}
+  }
+  {
+}
+
+% Including pdf graphics ----------------------------------------------------- %
+\newenvironment{pdfFig}[5]{
+  \begin{figure}[#1] 
+    \centering 
+    \includegraphics[width= #2]{#3} 
+    \caption{#4 \label{#5}}
+  \end{figure}
+  }
+  {
+}
+
+% Exercise and subexercise counters ------------------------------------------ %
+\newcounter{excounter}
+\renewcommand\theexcounter{\arabic{excounter}}
+\newcommand\exlabel{\theexcounter}
+\setcounter{excounter}{1}
+
+\newcounter{subexcounter}
+\renewcommand\thesubexcounter{\alph{subexcounter}}
+\newcommand\subexlabel{\thesubexcounter}
+\setcounter{subexcounter}{1}
+
+% Environments for exercises ------------------------------------------------- %
+\newenvironment{exercise}[1]{
+  \subsection*{Exercise \theexcounter: #1}
+  \setcounter{subexcounter}{1}                      % Reset the subexercise counter to a.
+  \addcontentsline{toc}{section}{\theexcounter: #1} % Add the exercise title to table of contents.
+  }
+      % Exercise text.
+  {
+  \stepcounter{excounter}                           % Add one to the exercise counter.
+  \newpage
+}
+
+% Environment for subexercises ----------------------------------------------- %
+\newenvironment{subexercise}{
+  \begin{exframe}
+    \begin{itemize}
+      \item[{\bf (\thesubexcounter)}] 
+	}
+	  % Subexercise text.
+	{
+    \end{itemize}
+  \end{exframe}
+  \stepcounter{subexcounter}                        % Add one to the exercise counter.
+}
+
+% Environment for answers ---------------------------------------------------- %
+\newenvironment{answer}{}{}
+
+
+
+
+
+%%----------------------------------------------------------------------------%%
+%%----------------------------------------------------------------------------%%
+\begin{document}
+
+Trial wave function:
+\begin{align}
+\psi_T(\rv_1,\rv_2) &= \exp\left\{-\alpha\omega\left(r_1^2 + r_2^2\right) \right\}\exp\left\{\frac{r_{12}}{1+\beta r_{12}} \right\} = \psi_S \psi_J.
+\end{align}
+
+Local energy:
+\begin{align}
+E_L(\rv_1,\rv_2) &= \frac{1}{\psi_T(\rv_1,\rv_2)}\,\hat{H}\,\psi_T (\rv_1,\rv_2) \nn\\
+%%
+&=  \frac{1}{\psi_T(\rv_1,\rv_2)} \left[\sum_{i=1}^N\left(-\frac{1}{2}\nabla_i^2 +\frac{1}{2}\omega^2r_i^2 \right) +\sum_{i=1}^N\sum_{j=i+1}^N \frac{1}{r_{ij}} \right]\psi_T(\rv_1,\rv_2) \nn\\
+%%
+&= \frac{1}{\psi_T(\rv_1,\rv_2)} \left[-\frac{1}{2}\nabla_1^2-\frac{1}{2}\nabla_2^2 +\frac{1}{2}\omega^2r_1^2+\frac{1}{2}\omega^2r_2^2  +\frac{1}{r_{12}} \right]\psi_T(\rv_1,\rv_2) \nn\\
+%%
+&= \underbrace{-\frac{1}{2\psi_T(\rv_1,\rv_2)} \left[ \nabla_1^2 + \nabla_2^2\right] \psi_T(\rv_1,\rv_2)}_{\text{Kinetic energy}} + \underbrace{\frac{1}{2}\omega^2\left(r_1^2+r_2^2 \right) + \frac{1}{r_{12}}}_{\text{Potential energy}}
+\end{align}
+
+Laplacian in polar coordinates:
+\begin{align}
+\nabla^2f = {1 \over r} {\partial f \over \partial r}  + {\partial^2 f \over \partial r^2} + {1 \over r^2} {\partial^2 f \over \partial \theta^2}
+\end{align}
+
+
+Laplacian of $\psi_T(\rv_1,\rv_2)$:
+\begin{align}
+\nabla_1^2\psi_T(\rv_1,\rv_2) &= \nabla_1^2 \left[ \psi_S\psi_J\right] \nn\\
+%%
+&=  \left[{1 \over r_1} {\partial  \over \partial r_1}  + {\partial^2 \over \partial r_1^2}\right] \psi_S\psi_J \nn\\
+%%
+&=  \frac{1}{r_1}\pder{}{r_1}\left[\psi_S\psi_J\right]  +  {\partial^2 \over \partial r_1^2} \left[\psi_S\psi_J\right]\nn\\
+%%
+&= \frac{1}{r_1}\bigg[\underbrace{\pder{\psi_S}{r_1}}_{\equiv A_1}\psi_J + \psi_S\underbrace{\pder{\psi_J}{r_1}}_{\equiv B_1} \bigg] + \bigg[\underbrace{\pder{^2\psi_S}{r_1^2}}_{\equiv A_1'} + 2\pder{\psi_S}{r_1}\pder{\psi_J}{r_1} + \underbrace{\pder{^2\psi_J}{r_1^2}}_{\equiv B_1'} \bigg] 
+\end{align}
+
+\noindent\makebox[\linewidth]{\rule{0.7\paperwidth}{0.4pt}}
+
+\begin{align}
+\pder{r_{12}}{r_1} &= \pder{r_{12}}{x_1} \pder{x_1}{r_1} + \pder{r_{12}}{y_1}\pder{y_1}{r_1} + \pder{r_{12}}{x_2}\pder{x_2}{r_1} + \pder{r_{12}}{y_2}\pder{y_2}{r_1} \nn\\
+%%
+&=  \pder{r_{12}}{x_1} \pder{x_1}{r_1} + \pder{r_{12}}{y_1}\pder{y_1}{r_1},
+\end{align}
+where 
+\begin{align}
+\pder{r_{12}}{x_1} &= \pder{}{x_1}\left[\sqrt{\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}\right] \nn\\
+%%
+&= \frac{1}{2\sqrt{\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}} \left\{ \pder{}{x_1}\left[ \left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2\right]\right\} \nn\\
+%%
+&= \frac{1}{2r_{12}} \pder{}{x_1} \left[ x_2^2-2x_1x_2+x_1^2+y_2^2-2y_1y_2+y_1^2 \right] \nn\\ 
+%%
+&= \frac{1}{2r_{12}} \left[2x_1 - 2x_2 \right]  =  \frac{x_1-x_2}{2r_{12}}.
+\end{align}
+Similarily,
+\begin{align}
+\pder{r_{12}}{x_2} = \frac{x_2-x_1}{r_{12}}, \ \pder{r_{12}}{y_1} = \frac{y_1-y_2}{r_{12}}\text{ and } \pder{r_{12}}{y_2}=\frac{y_2-y_1}{r_{12}}.
+\end{align}
+Since $x_1=r_1\cos\theta_1$ and $y_1=r_1\sin\theta_1$, we have
+\begin{align}
+\pder{x_1}{r_1}=\cos\theta_1\text{  and  } \pder{y_1}{r_1}=\sin\theta_1,
+\end{align}
+thus
+\begin{align}
+\pder{r_{12}}{r_1}&=\left(\frac{x_1-x_2}{r_{12}}\right)\cos\theta_1 + \left(\frac{y_1-y_2}{r_{12}}\right)\sin\theta_1
+\end{align}
+
+\noindent\makebox[\linewidth]{\rule{0.7\paperwidth}{0.4pt}}
+
+\subsection*{$A_1$:}
+\begin{align}
+ A_1 = \pder{ }{r_1}\psi_S &= \pder{ }{r_1}\left[ \exp\left\{-\alpha\omega\left(r_1^2+r_2^2 \right) \right\} \right] = -2\alpha\omega r_1 \exp\left\{-\alpha\omega\left(r_1^2+r_2^2 \right) \right\} \nn\\
+%%
+&= -2\alpha\omega r_1 \psi_S 
+\end{align}
+
+\subsection*{$A_1'$:}
+\begin{align}
+A_1' = \pder{^2}{r_1^2}\psi_S &= \pder{}{r_1} \left[ -2\alpha\omega r_1 \psi_S \right] = -2\alpha\omega \left[\pder{r_1}{r_1}\psi_S + r_1\pder{\psi_S}{r_1}\right] \nn\\
+%%
+&= -2\alpha\omega \psi_S -2\alpha\omega r_1 \left[ -2\alpha\omega r_1 \psi_S -2\alpha\omega r_1 \psi_S  \right] \nn\\
+%%
+&= -2\alpha\omega \psi_S \left[ 1 - 2\alpha\omega r_1^2\right]   
+\end{align}
+
+\subsection*{$B_1$:}
+\begin{align}
+B = \pder{}{r_1}\psi_J &= \pder{}{r_1} \left[ \exp\left\{\frac{r_{12}}{1+\beta r_{12}} \right\} \right] \nn\\
+%%
+&= \exp\left\{\frac{r_{12}}{1+\beta r_{12}} \right\}\pder{}{r_1}\left[\frac{r_{12}}{1+\beta r_{12}} \right] \nn\\
+%%
+&= \psi_J \left[\frac{\pder{r_{12}}{r_1}\left(1+\beta r_{12}\right)-r_{12} \pder{}{r_1}\left(1+\beta r_{12} \right)}{\left(1+\beta r_{12}\right)^2} \right] \nn\\
+%%
+&= \frac{\psi_J}{\left(1+\beta r_{12}\right)^2}\left\{\pder{r_{12}}{r_1}\left(1+\beta r_{12}\right)-r_{12} \pder{}{r_1}\left(1+\beta r_{12} \right) \right\} \nn\\
+%%
+&= \frac{\psi_J}{\left(1+\beta r_{12}\right)^2} \left\{\left[\left(\frac{x_1-x_2}{r_{12}}\right)\cos\theta_1 + \left(\frac{y_1-y_2}{r_{12}}\right)\sin\theta_1\right]\left(1+\beta r_{12}\right) \right. \nn\\
+%%
+& \left. \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ - \  r_{12} \beta \left[\left(\frac{x_1-x_2}{r_{12}}\right)\cos\theta_1 + \left(\frac{y_1-y_2}{r_{12}}\right)\sin\theta_1 \right]  \right\} \nn\\
+%%
+&= \frac{\psi_J}{\left(1+\beta r_{12}\right)^2} \left\{\left(\frac{x_1-x_2}{r_{12}}\right)\frac{x_1}{r_1} + \left(\frac{y_1-y_2}{r_{12}}\right)\frac{y_1}{r_1} \right\} \nn\\
+%%
+&= \frac{\psi_J}{\left(1+\beta r_{12}\right)^2} \left\{\left(\frac{x_1(x_1-x_2)}{r_{12}^2}\right) + \left(\frac{y_1(y_1-y_2)}{r_{12}^2}\right)\right\},
+\end{align}
+where we used that $x_1=r_1\cos\theta_1\Rightarrow \cos\theta_1=x_1/r_1$ and $y_1=r_1\sin\theta_1 \Rightarrow \sin\theta_1=y_1/r_1$.
+
+
+\subsection*{$B_1':$}
+\begin{align}
+B_1' = \pder{^2}{r_1^2}\psi_J = \pder{}{r_1}\left[\frac{\psi_J}{\left(1+\beta r_{12}\right)^2} \left\{\left(\frac{x_1(x_1-x_2)}{r_{12}^2}\right) + \left(\frac{y_1(y_1-y_2)}{r_{12}^2}\right)\right\} \right] 
+\end{align}
+
+
+
+\end{document}
+%%----------------------------------------------------------------------------%%
+%%----------------------------------------------------------------------------%%
+
