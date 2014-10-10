@@ -36,11 +36,11 @@ format long;
 %% Apply the metropolis algorithm
 % ..while varying the variational parameters, INTERACTING electrons.
 N      = 5;
-nAlpha = 8;
-nBeta  = 8;
-m      = 1;
-alpha  = linspace(0.1, 2.0, nAlpha);
-beta   = linspace(0.1, 2.0, nBeta);
+nAlpha = 12;
+nBeta  = 12;
+m      = 5;
+alpha  = linspace(0.9, 1.1, nAlpha);
+beta   = linspace(0.5, 0.6, nBeta);
 energy = zeros(nAlpha, nBeta);
 
 for i=1:nAlpha
@@ -85,3 +85,6 @@ mesh(alpha(a-k:a+k), beta(b-k:b+k), energy(a-k:a+k,b-k:b+k));
 xlabel('alpha');
 ylabel('beta');
 zlabel('energy');
+
+
+

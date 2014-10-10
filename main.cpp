@@ -51,9 +51,9 @@ int main(int argc, char* argv[]) {
     lint   maxValueSignedLongInt = pow(2,31)-2;
 
     // Numerical and physical parameters.
-    int    testCase     = 2;
+    int    testCase     = 1;
     lint   seed         = (lint) (startTime % maxValueSignedLongInt);
-    int    N            = pow(10, 6);
+    int    N            = pow(10, 7);
     int    M            = floor(N / 4);
     double dx           = 10.0;
     double omega        = 0.25;
@@ -88,9 +88,9 @@ int main(int argc, char* argv[]) {
 
         } case 1: {
             // Two INTERACTING electrons in a 3D external harmonic oscillator well.
-            dx = 3.5; omega = 0.25;
-            alpha(0) = 0.61076;
-            alpha(1) = 0.78987;
+            dx = 3.5; omega = 0.5; // Omega_r is this omega / 2.
+            alpha(0) = 0.95455;
+            alpha(1) = 0.50909;
             system.setTrialWavefunction(new TwoElectronInteracting(alpha));
             system.setNumberOfDimensions(3);
             system.setHamiltonian(new HarmonicOscillatorWithCoulombInteraction(omega));
@@ -120,6 +120,14 @@ int main(int argc, char* argv[]) {
     statistics->printDataToFile(fileName);
     if (printOutput) statistics->printDataToTerminal(unixTimeInMicroseconds() -
                                                      startTime);
+
+
+    double tautEnergy = (statistics->getEnergy() -3.0 / 4.0) / 2.0;
+    double relError   = fabs(tautEnergy - 0.6250) / 0.6250;
+
+    printf("\nTaut energy:               %25.15g\n", tautEnergy);
+    printf("\Relative error:          %25.15g %%\n\n\n", relError*100);
+
 
     // Program executed successfully, return 0.
     return 0;

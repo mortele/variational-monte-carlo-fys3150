@@ -29,5 +29,6 @@ public:
     void printDataToFile(const char* fileName);
     void setStoreOneBody(bool storeOneBody) {m_storeOneBody = storeOneBody;}
     void storePositions();
+    double getEnergy() {return m_energy / (m_N - m_M);}
 };
 

@@ -21,7 +21,7 @@ double HeliumAtom::evaluateLocalEnergy(mat R) {
     double r1  = norm(position1);
     double r2  = norm(position2);
     double r12 = norm(distance12);
-    double potential  = - 2.0/r1 - 2.0/r2 +  1.0/r12;
+    double potential = 1.0/r12 - 2.0/r1 - 2.0/r2;
 
     return kinetic + potential;
 }
