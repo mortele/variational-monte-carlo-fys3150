@@ -9,14 +9,14 @@ SOURCES += main.cpp \
     Wavefunctions/TwoElectronNonInteracting.cpp \
     Hamiltonians/Hamiltonian.cpp \
     System.cpp \
-    Hamiltonians/HarmonicOscillator.cpp \
     Wavefunctions/TwoElectronInteracting.cpp \
     Math/RandomNumberGenerator.cpp \
     StatisticsSampler.cpp \
-    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.cpp \
     timing.cpp \
-    Hamiltonians/HeliumAtom.cpp \
-    Wavefunctions/HeliumAtomWavefunction.cpp
+    Wavefunctions/HeliumAtomWavefunction.cpp \
+    Wavefunctions/WaveFunction.cpp \
+    Wavefunctions/Slater.cpp \
+    Wavefunctions/Orbital.cpp
 
 
 HEADERS += \
@@ -24,14 +24,14 @@ HEADERS += \
     Wavefunctions/TwoElectronNonInteracting.h \
     Hamiltonians/Hamiltonian.h \
     System.h \
-    Hamiltonians/HarmonicOscillator.h \
     Wavefunctions/TwoElectronInteracting.h \
     Math/RandomNumberGenerator.h \
     StatisticsSampler.h \
-    Hamiltonians/HarmonicOscillatorWithCoulombInteraction.h \
     timing.h \
-    Hamiltonians/HeliumAtom.h \
-    Wavefunctions/HeliumAtomWavefunction.h
+    Wavefunctions/HeliumAtomWavefunction.h \
+    Wavefunctions/WaveFunction.h \
+    Wavefunctions/Slater.h \
+    Wavefunctions/Orbital.h
 
 
 #CONFIG  += c++11

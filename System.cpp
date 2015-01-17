@@ -1,6 +1,6 @@
 #include <System.h>
 #include <Hamiltonians/Hamiltonian.h>
-#include <Wavefunctions/TrialWavefunction.h>
+#include <Wavefunctions/WaveFunction.h>
 #include <Math/RandomNumberGenerator.h>
 #include <StatisticsSampler.h>
 #include <timing.h>
@@ -16,7 +16,7 @@ System::System() {
 }
 
 
-void System::setTrialWavefunction(TrialWavefunction *trial) {
+void System::setTrialWavefunction(WaveFunction *trial) {
     m_wavefunction = trial;
 }
 
@@ -28,7 +28,7 @@ void System::setHamiltonian(Hamiltonian *hamiltonian) {
 
 
 void System::setAlpha(vec a) {
-    m_wavefunction->setAlpha(a);
+    //m_wavefunction->setAlpha(a);
 }
 
 
@@ -39,19 +39,19 @@ void System::setUpMetropolis(int    N,
     m_N  = N;
     m_M  = M;
     m_dx = dx;
-    m_particles  = m_wavefunction->getNumberOfParticles();
-    m_dimensions = m_wavefunction->getNumberOfDimensions();
-    m_R = m_wavefunction->setInitialPosition();
-    m_wavefunction->setOldWaveFunctionSquared(
+    m_particles  = m_wavefunction->NumberOfParticles;
+    m_dimensions = m_wavefunction->NumberOfDimensions;
+    //m_R = m_wavefunction->setInitialPosition();
+    /*m_wavefunction->setOldWaveFunctionSquared(
                     pow(m_wavefunction->evaluateWavefunction(m_R),2));
-
+*/
     m_statisticsSampler->setStoreOneBody(storeOneBody);
 }
 
 
 void System::setRandomNumberGeneratorSeed(long *seed) {
     m_seed = seed;
-    m_wavefunction->setRandomNumberGeneratorSeed(seed);
+    //m_wavefunction->setRandomNumberGeneratorSeed(seed);
 }
 
 
@@ -107,13 +107,13 @@ bool System::metropolisStep() {
     //newR(randomParticle,randomCoordinate)+=((randomNumberGenerator(m_seed)*2)
     //                                        - 1) * m_dx;
 
-    double newWavefunctionSquared = pow(m_wavefunction->
+    /*double newWavefunctionSquared = pow(m_wavefunction->
                                         evaluateWavefunction(newR), 2);
     double oldWavefunctionSquared = m_wavefunction->
                                     getOldWaveFunctionSquared();
-
+*/
     // Check if the new position is prefered.
-    if (newWavefunctionSquared > oldWavefunctionSquared) {
+    /*if (newWavefunctionSquared > oldWavefunctionSquared) {
         m_R = newR;
         m_wavefunction->setOldWaveFunctionSquared(newWavefunctionSquared);
         return true;
@@ -128,10 +128,10 @@ bool System::metropolisStep() {
         } else {
             return false;
         }
-    }
+    }*/
 }
 
 void System::setNumberOfDimensions(int numberOfDimensions) {
     m_dimensions = numberOfDimensions;
-    m_wavefunction->setNumberOfDimensions(numberOfDimensions);
+    //m_wavefunction->setNumberOfDimensions(numberOfDimensions);
 }

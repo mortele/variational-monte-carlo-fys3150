@@ -3,7 +3,7 @@
 
 
 class Hamiltonian;
-class TrialWavefunction;
+class WaveFunction;
 class StatisticsSampler;
 
 
@@ -21,7 +21,7 @@ private:
     long*  m_seed;
     arma::mat          m_R;
     Hamiltonian       *m_hamiltonian;
-    TrialWavefunction *m_wavefunction;
+    WaveFunction      *m_wavefunction;
     StatisticsSampler *m_statisticsSampler;
 
 public:
@@ -36,8 +36,8 @@ public:
     // Getters, setters.
     void setRandomNumberGeneratorSeed(long*              seed);
     void setNumberOfDimensions       (int                numberOfDimensions);
-    void setTrialWavefunction        (TrialWavefunction* trial);
+    void setTrialWavefunction        (WaveFunction* trial);
     void setHamiltonian              (Hamiltonian*       hamiltonian);
     void setAlpha                    (arma::vec          a);
-    TrialWavefunction* getWavefunction() {return m_wavefunction;}
+    WaveFunction* getWavefunction() {return m_wavefunction;}
 };
